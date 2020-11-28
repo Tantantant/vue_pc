@@ -44,8 +44,8 @@
         </router-link>
       </div>
       <div class="header-search">
-        <input type="text" />
-        <button><a href="##">搜索</a></button>
+        <input type="text" v-model="searchText" />
+        <button @click="search">搜索</button>
       </div>
     </div>
   </div>
@@ -54,6 +54,19 @@
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      searchText: "",
+    };
+  },
+  methods: {
+    search() {
+      const { searchText } = this,
+      params = searchText ? `/${searchText}` : "";
+      const search = `/search` + params;
+      this.$router.push(search);
+    },
+  },
 };
 </script>
 
@@ -119,8 +132,6 @@ export default {
   border: none;
   outline: none;
   cursor: pointer;
-  a {
-    color: #fff;
-  }
+  color: #fff;
 }
 </style>

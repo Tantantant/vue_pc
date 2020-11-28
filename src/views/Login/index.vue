@@ -4,8 +4,8 @@
       <div class="Login-login-Outter">
         <div class="Login-login-Inner">
           <ul class="Login-login">
-            <li>扫描登陆</li>
-            <li class="clear-border">账户登录</li>
+            <li><a href="###">扫描登陆</a></li>
+            <li class="clear-border"><a href="###">账户登录</a></li>
           </ul>
           <div class="Login-content">
             <form action="##">
