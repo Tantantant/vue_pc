@@ -8,7 +8,7 @@
             <li class="clear-border"><a href="###">账户登录</a></li>
           </ul>
           <div class="Login-content">
-            <form action="##">
+            <form @submit.prevent="login">
               <div class="Login-phone">
                 <i></i>
                 <input type="text" placeholder="手机号" />
@@ -31,13 +31,13 @@
               <button class="Login-btn">登&nbsp;&nbsp;录</button>
             </form>
             <div class="Login-foot">
-                <ul>
-                  <li><img src="./images/qq.png" alt=""></li>
-                  <li><img src="./images/weixin.png" alt=""></li>
-                  <li><img src="./images/sina.png" alt=""></li>
-                  <li><img src="./images/ali.png" alt=""></li>
-                </ul>
-                <span>立即注册</span>
+              <ul>
+                <li><img src="./images/qq.png" alt="" /></li>
+                <li><img src="./images/weixin.png" alt="" /></li>
+                <li><img src="./images/sina.png" alt="" /></li>
+                <li><img src="./images/ali.png" alt="" /></li>
+              </ul>
+              <span>立即注册</span>
             </div>
           </div>
         </div>
@@ -47,8 +47,21 @@
 </template>
 
 <script>
+import {Login} from "../../api/user";
+
 export default {
   name: "Login",
+  methods: {
+    login(){
+      Login("13700000000","1111111")
+      .then(res=>{
+        console.log("成功",res)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  },
 };
 </script>
 
@@ -107,7 +120,7 @@ export default {
     input {
       width: 290px;
       height: 33px;
-      border:1px solid #ccc;
+      border: 1px solid #ccc;
       display: flex;
     }
   }
@@ -165,17 +178,17 @@ export default {
   border-image: initial;
   outline: none;
 }
-.Login-foot{
+.Login-foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
-  ul{
-    width:162px;
+  ul {
+    width: 162px;
     display: flex;
     justify-content: space-between;
   }
-  span{
+  span {
     font-size: 16px;
   }
 }

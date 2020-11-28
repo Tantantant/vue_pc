@@ -6,6 +6,7 @@ import Login from "../views/Login"
 import Register from "../views/Register"
 import Search from "../views/Search"
 
+// 重写$router中push和replace方法
 const push = VueRouter.prototype.push
 const replace = VueRouter.prototype.replace
 VueRouter.prototype.push = function (localtion, onComplate, onAbort) {
@@ -20,6 +21,7 @@ VueRouter.prototype.replace = function (localtion, onComplate, onAbort) {
     }
     return replace.call(this, localtion, onComplate)
 }
+
 
 Vue.use(VueRouter)
 
