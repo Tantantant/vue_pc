@@ -39,7 +39,7 @@
     </div>
     <div class="header-bottom">
       <div class="header-logo">
-        <router-link to="/home">
+        <router-link to="/">
           <img src="./images/logo.png" alt="" />
         </router-link>
       </div>

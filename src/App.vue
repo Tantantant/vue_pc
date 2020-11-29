@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "@comps/Header";
+import Footer from "@comps/Footer";
 
 export default {
-  name: "App",
+  name: "",
   components: {
     Header,
     Footer,
@@ -19,5 +19,5 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 </style>

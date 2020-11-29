@@ -3,6 +3,8 @@ import axios from 'axios';
 // 引入进度条
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+// 引入element-ui
+import { Message } from 'element-ui';
 // 公共资源
 const instance = axios.create({
     baseURL: '/api',
@@ -29,18 +31,23 @@ instance.interceptors.response.use(
         Nprogress.done()
         // 判断code === 200
         //如果等于返回数据
-        // console.log(response)
+        console.log(response)
         if (response.data.code === 200) {
             return response.data.data
         }
+        const {message} = response.data
+        // 错误提示
+        Message.error(message)
         // 功能失败 返回失败的Promise
-        return Promise.reject(response.data.message)
+        return Promise.reject(message)
     },
     // 响应失败：响应状态码不是2开头
     (error) => {
         //进度条结束
         Nprogress.done()
         const message = error.message || "网络错误"
+        // 错误提示
+        Message.error(message)
         return Promise.reject(message)
     }
 )

@@ -3,7 +3,7 @@
     <div class="Register-newUser">
       <h3>
         注册新用户
-        <span>我有账号，去<a href="###"> 登录</a></span>
+        <span>我有账号，去<router-link to="/login"> 登录</router-link></span>
       </h3>
     </div>
     <div class="Register-content">
@@ -119,5 +119,9 @@ export default {
   font-size: 16px;
   border: 1px solid #dfdfdf;
   transform: translate(182%);
+}
+// 隐藏错误信息
+.Register-error-msg{
+  display: none;
 }
 </style>

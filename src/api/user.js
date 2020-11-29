@@ -6,7 +6,7 @@ export const Login = (phone,password)=>{
     // 外面可以接收到request的返回值（Promise对象）
     return request({
         method:"POST",
-        url:"/user/passport/login",
+        url:"http://182.92.128.115/api/user/passport/login",
         data:{
             // 放置请求体参数，通常post请求
             phone,
