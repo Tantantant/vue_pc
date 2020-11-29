@@ -47,20 +47,20 @@
 </template>
 
 <script>
-import {Login} from "../../api/user";
+import { Login } from "@api/user";
 
 export default {
   name: "Login",
   methods: {
-    login(){
-      Login("13700000000","1111111")
+    login() {
+      Login("13700000000","111111")
       .then(res=>{
         console.log("成功",res)
       })
       .catch(err=>{
-        console.log(err)
+        console.log("err",err)
       })
-    }
+    },
   },
 };
 </script>

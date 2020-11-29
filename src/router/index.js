@@ -16,10 +16,10 @@ VueRouter.prototype.push = function (localtion, onComplate, onAbort) {
     return push.call(this, localtion, onComplate, () => { })
 }
 VueRouter.prototype.replace = function (localtion, onComplate, onAbort) {
-    if (localtion, onComplate, onAbort) {
+    if (onComplate, onAbort) {
         return replace.call(this, localtion, onComplate, onAbort)
     }
-    return replace.call(this, localtion, onComplate)
+    return replace.call(this, location, onComplate, () => { })
 }
 
 
@@ -35,7 +35,7 @@ export default new VueRouter({
             path: '/login',
             component: Login,
             meta: {
-                isFooterHide: true,
+                isFooterHide: true
             }
         },
         {

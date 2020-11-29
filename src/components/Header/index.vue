@@ -60,11 +60,15 @@ export default {
     };
   },
   methods: {
+    //需求：去掉地址后面的 /
     search() {
-      const { searchText } = this,
-      params = searchText ? `/${searchText}` : "";
-      const search = `/search` + params;
-      this.$router.push(search);
+      const { searchText } = this;
+      // 判断searcherText 是否有值，有值就返回当前值，没有就返回空
+      const text = searchText ? `/${searchText}` : "";
+      // 生成跳转的路径
+      const localtion = `/search`+text
+      // 编程式导航：将来要做搜索功能（发送请求）
+      this.$router.push(localtion);
     },
   },
 };
