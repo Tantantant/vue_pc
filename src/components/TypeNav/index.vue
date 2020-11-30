@@ -15,22 +15,33 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-          <div class="item bo" v-for="father in categoryList" :key="father.categoryId">
+          <div
+            class="item bo"
+            v-for="father in categoryList"
+            :key="father.categoryId"
+          >
             <h3>
               <!-- 一级分类名称 -->
-              <a href="">{{father.categoryName}}</a>
+              <a href="">{{ father.categoryName }}</a>
             </h3>
             <div class="item-list clearfix">
               <div class="subitem">
-                <dl class="fore" v-for="child in father.categoryChild" :key="child.categoryId">
+                <dl
+                  class="fore"
+                  v-for="child in father.categoryChild"
+                  :key="child.categoryId"
+                >
                   <dt>
                     <!-- 二级分类名称 -->
-                    <a href="">{{child.categoryName}}</a>
+                    <a href="">{{ child.categoryName }}</a>
                   </dt>
                   <dd>
                     <!-- 三级分类名称 -->
-                    <em v-for="grandChild in child.categoryChild" :key="grandChild.categoryId">
-                      <a href="">{{grandChild.categoryName}}</a>
+                    <em
+                      v-for="grandChild in child.categoryChild"
+                      :key="grandChild.categoryId"
+                    >
+                      <a href="">{{ grandChild.categoryName }}</a>
                     </em>
                   </dd>
                 </dl>
@@ -44,20 +55,32 @@
 </template>
 
 <script>
-import { BaseCategoryList } from "@api/home";
+// import { BaseCategoryList } from "@api/home";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "TypeNav",
   // 初始化响应式数据
-  data() {
-    return {
-      categoryList: [],
-    };
+  // data() {
+  //   return {
+  //     categoryList: [],
+  //   };
+  // },
+  computed: {
+    ...mapState({
+      categoryList: (state) => state.home.categoryListStart,
+    }),
   },
-  async mounted() {
-    const result = await BaseCategoryList();
-    this.categoryList = result.slice(0,10);
+  methods: {
+    ...mapActions(["getCategoryList"]),
   },
+  // async mounted() {
+  //   const result = await BaseCategoryList();
+  //   this.categoryList = result.slice(0, 10);
+  // },
+  mounted(){
+    this.getCategoryList()
+  }
 };
 </script>
 
