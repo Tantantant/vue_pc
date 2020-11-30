@@ -63,11 +63,31 @@ export default {
     //需求：去掉地址后面的 /
     search() {
       const { searchText } = this;
-      // 判断searcherText 是否有值，有值就返回当前值，没有就返回空
-      const text = searchText ? `/${searchText}` : "";
-      // 生成跳转的路径
-      const localtion = `/search`+text
-      // 编程式导航：将来要做搜索功能（发送请求）
+      // const { categoryName } = this.$route.query
+      // // if(categoryName){
+      // //   // const query =
+      // //   const localtion = `/search` + params+ this.$route.query;
+      // // }
+      // // 判断searcherText 是否有值，有值就返回当前值，没有就返回空
+      // const params = searchText ? `/${searchText}` : "";
+
+      // // 生成跳转的路径
+      // const localtion = `/search` + params;
+      // // 编程式导航：将来要做搜索功能（发送请求）
+      // this.$router.push(localtion);
+      const localtion = {
+        name: "search",
+        // const { categoryName } = this.$route.query;
+      };
+      if (searchText) {
+        localtion.params = {
+          searchText,
+        };
+      }
+      const { categoryName } = this.$route.query;
+      if (categoryName) {
+        localtion.query = this.$route.query;
+      }
       this.$router.push(localtion);
     },
   },
