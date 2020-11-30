@@ -14,7 +14,7 @@
         <a href="###">秒杀</a>
       </nav>
       <div class="sort">
-        <div class="all-sort-list2">
+        <div class="all-sort-list2" @click="goSearch">
           <div
             class="item bo"
             v-for="father in categoryList"
@@ -22,7 +22,12 @@
           >
             <h3>
               <!-- 一级分类名称 -->
-              <a href="">{{ father.categoryName }}</a>
+              <a
+                :data-categoryName="father.categoryName"
+                :data-categoryId="father.categoryId"
+                :data-categoryNum="1"
+                >{{ father.categoryName }}</a
+              >
             </h3>
             <div class="item-list clearfix">
               <div class="subitem">
@@ -33,7 +38,12 @@
                 >
                   <dt>
                     <!-- 二级分类名称 -->
-                    <a href="">{{ child.categoryName }}</a>
+                    <a
+                      :data-categoryName="child.categoryName"
+                      :data-categoryId="child.categoryId"
+                      :data-categoryNum="2"
+                      >{{ child.categoryName }}</a
+                    >
                   </dt>
                   <dd>
                     <!-- 三级分类名称 -->
@@ -41,7 +51,12 @@
                       v-for="grandChild in child.categoryChild"
                       :key="grandChild.categoryId"
                     >
-                      <a href="">{{ grandChild.categoryName }}</a>
+                      <a
+                        :data-categoryName="grandChild.categoryName"
+                        :data-categoryId="grandChild.categoryId"
+                        :data-categoryNum="3"
+                        >{{ grandChild.categoryName }}</a
+                      >
                     </em>
                   </dd>
                 </dl>
@@ -73,14 +88,25 @@ export default {
   },
   methods: {
     ...mapActions(["getCategoryList"]),
+    goSearch(e) {
+      const { categoryname, categorynum, categoryid } = e.target.dataset;
+      if (!categoryname) return;
+      this.$router.push({
+        name: "search",
+        query: {
+          categoryName: categoryname,
+          [`category${categorynum}Id`]: categoryid,
+        },
+      });
+    },
   },
   // async mounted() {
   //   const result = await BaseCategoryList();
   //   this.categoryList = result.slice(0, 10);
   // },
-  mounted(){
-    this.getCategoryList()
-  }
+  mounted() {
+    this.getCategoryList();
+  },
 };
 </script>
 
