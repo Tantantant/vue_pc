@@ -75,6 +75,7 @@ export default {
       // const localtion = `/search` + params;
       // // 编程式导航：将来要做搜索功能（发送请求）
       // this.$router.push(localtion);
+      
       const localtion = {
         name: "search",
         // const { categoryName } = this.$route.query;

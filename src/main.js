@@ -5,6 +5,11 @@ import App from './App.vue'
 
 import router from './router/index'
 import store from '@store/'
+
+// 引入mockServer 为了加载里面的代码
+// 里面的代码一旦加载，就会启动mock服务器，从而拦截相应的请求
+import './mock/mockServer'
+
 import './styles/reset.css'
 import './plugins/element.js'
 

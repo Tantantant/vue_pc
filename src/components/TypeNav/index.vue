@@ -17,7 +17,7 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <transition class="fade">
+      <transition name="search">
         <div class="sort" v-show="isHomeShow || isSearchShow">
           <div class="all-sort-list2" @click="goSearch">
             <div
@@ -96,6 +96,7 @@ export default {
   methods: {
     ...mapActions(["getCategoryList"]),
     goSearch(e) {
+      // 解构自定义属性
       const { categoryname, categorynum, categoryid } = e.target.dataset;
       //隐藏菜单
       this.isSearchShow = false;
@@ -116,23 +117,16 @@ export default {
           searchText,
         };
       }
-      
+
       this.$router.push(localtion);
-      // this.$router.push({
-      //   name: "search",
-      //   query: {
-      //     categoryName: categoryname,
-      //     [`category${categorynum}Id`]: categoryid,
-      //   },
-      // });
     },
   },
-  // async mounted() {
-  //   const result = await BaseCategoryList();
-  //   this.categoryList = result.slice(0, 10);
-  // },
   mounted() {
-    // console.log(this)
+    // 减少请求次数
+    // 判断vuex中是否有数据
+    if (this.categoryList.length) return;
+    
+    //调用vuex中的actions
     this.getCategoryList();
   },
 };
@@ -176,14 +170,15 @@ export default {
       width: 210px;
       height: 461px;
       position: absolute;
-      background: #fafafa;
+      background: #eaeaea;
       z-index: 999;
 
-      &.fade-enter-active {
+      &.search-enter-active {
         transition: height 0.5s;
+        overflow: hidden;
       }
-      &.fade-enter {
-        height: 491px;
+      &.search-enter {
+        height: 0px;
       }
       .all-sort-list2 {
         .item {
