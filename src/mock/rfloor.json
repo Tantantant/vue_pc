@@ -1,0 +1,22 @@
+[
+  {
+    "id|+1": 1,
+    "name": "@ctitle",
+    "keywords|4-8": ["@ ctitle"],
+    "imgUrl": "@image()",
+    "navList": [
+      {
+        "url": "#",
+        "text": "@ctitle(4,6)"
+      }
+    ],
+    "carouselList|3": [
+      {
+        "id": "0011",
+        "imgUrl": "@image(329x360,'@color()')"
+      }
+    ],
+    "recommendList|4": ["@image(329x360,'@color()')"],
+    "bigImg": "@image(329x360,'@color()')"
+  }
+]

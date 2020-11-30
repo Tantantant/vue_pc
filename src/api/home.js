@@ -10,9 +10,22 @@ export const BaseCategoryList = ()=>{
         })
 }
 
+/**
+ *  获取首页轮播图数据
+ */
 export const reqGetBanners = ()=>{
     return mockrequest({
         method:"GET",
         url:"/banners"
+    })
+}
+/**
+ *  获取首页楼层数据
+ */
+
+export const reqGetFloors = ()=>{
+    return mockrequest({
+        method:"GET",
+        url:"/floors"
     })
 }

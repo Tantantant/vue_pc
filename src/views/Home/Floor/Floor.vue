@@ -2,13 +2,13 @@
   <div class="floor">
     <div class="py-container">
       <div class="title clearfix">
-        <h3 class="fl">家用电器</h3>
+        <h3 class="fl">{{ floors.name }}</h3>
         <div class="fr">
-          <ul class="nav-tabs clearfix">
+          <ul class="nav-tabs clearfix" v-for="floor in floors" :key="floor.id">
             <li class="active">
-              <a href="#tab1" data-toggle="tab">热门</a>
+              <a href="#tab1" data-toggle="tab">{{ floor.name }}</a>
             </li>
-            <li>
+            <!-- <li>
               <a href="#tab2" data-toggle="tab">大家电</a>
             </li>
             <li>
@@ -25,7 +25,7 @@
             </li>
             <li>
               <a href="#tab7" data-toggle="tab">高端电器</a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -42,6 +42,7 @@
                 <li>电热水器</li>
               </ul>
               <img src="./images/floor-1-1.png" />
+              <!-- <img :src="floors.imgUrl" /> -->
             </div>
             <div class="floorBanner">
               <div class="swiper-container" id="floor1Swiper">
@@ -93,8 +94,23 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "Floor",
+  computed: {
+    ...mapState({
+      floors: (state) => state.home.floors,
+    }),
+  },
+  methods: {
+    ...mapActions({
+      ...mapActions(["getFloors"]),
+    }),
+  },
+  mounted() {
+    this.getFloors();
+  },
 };
 </script>
 
