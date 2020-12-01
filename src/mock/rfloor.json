@@ -2,7 +2,7 @@
   {
     "id|+1": 1,
     "name": "@ctitle",
-    "keywords|4-8": ["@ ctitle"],
+    "keywords|4-8": ["@ctitle()"],
     "imgUrl": "@image()",
     "navList": [
       {

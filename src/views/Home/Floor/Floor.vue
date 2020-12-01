@@ -2,7 +2,7 @@
   <div class="floor">
     <div class="py-container">
       <div class="title clearfix">
-        <h3 class="fl">{{ floors.name }}</h3>
+        <h3 class="fl">{{floors.name}}</h3>
         <div class="fr">
           <ul class="nav-tabs clearfix" v-for="floor in floors" :key="floor.id">
             <li class="active">
@@ -33,8 +33,8 @@
         <div class="tab-pane">
           <div class="floor-1">
             <div class="blockgary">
-              <ul class="jd-list">
-                <li>节能补贴</li>
+              <ul class="jd-list" >
+                <!-- <li>{{floor.keywords}}</li> -->
                 <li>4K电视</li>
                 <li>空气净化器</li>
                 <li>IH电饭煲</li>
