@@ -2,16 +2,16 @@
   <div class="today-recommend">
     <div class="py-container">
       <ul class="recommend">
-        <li class="clock">
+        <!-- <li class="clock">
           <div class="time">
             <img src="./images/clock.png" />
             <h3>今日推荐</h3>
           </div>
+        </li> -->
+        <li class="banner" v-for="recommend in todayRecommends" :key="recommend.id">
+          <img :src="recommend.imgUrl" />
         </li>
-        <li class="banner">
-          <img src="./images/today01.png" />
-        </li>
-        <li class="banner">
+        <!-- <li class="banner">
           <img src="./images/today02.png" />
         </li>
         <li class="banner">
@@ -19,16 +19,28 @@
         </li>
         <li class="banner">
           <img src="./images/today04.png" />
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
-  name: 'TodayRecommend',
-}
+  name: "TodayRecommend",
+  computed: {
+    ...mapState({
+      todayRecommends: (state) => state.home.todayRecommends,
+    }),
+  },
+  methods: {
+    ...mapActions(["getTodayRecommends"]),
+  },
+  mounted() {
+    this.getTodayRecommends();
+  },
+};
 </script>
 
 <style  lang="less" scoped>

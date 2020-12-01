@@ -1,12 +1,8 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div
-      class="container"
-      @mouseenter="isSearchShow = true"
-      @mouseleave="isSearchShow = false"
-    >
-      <h2 class="all">全部商品分类</h2>
+    <div class="container" @mouseleave="isSearchShow = false">
+      <h2 class="all" @mouseenter="isSearchShow = true">全部商品分类</h2>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -125,7 +121,7 @@ export default {
     // 减少请求次数
     // 判断vuex中是否有数据
     if (this.categoryList.length) return;
-    
+
     //调用vuex中的actions
     this.getCategoryList();
   },

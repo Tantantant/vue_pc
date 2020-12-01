@@ -35,11 +35,11 @@ export default {
       floors: (state) => state.home.floors,
     }),
   },
-  methods:{
-    ...mapActions(["getFloors"])
+  methods: {
+    ...mapActions(["getFloors"]),
   },
-  mounted(){
-    this.getFloors()
+  mounted() {
+    this.getFloors();
   },
   components: {
     Brand,

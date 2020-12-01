@@ -1,0 +1,8 @@
+[
+    {
+        "id|+1":1,
+        "text|3":"@ctitle(4)",
+        "icon|3":"@image(35x35,'@color()')",
+        "rankList|4":"@image(230x310,@color())"
+    }
+]
