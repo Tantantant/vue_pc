@@ -1,4 +1,5 @@
 <template>
+  <!-- <div class="swiper-container" id="mySwiper"> -->
   <div class="swiper-container" id="mySwiper">
     <div class="swiper-wrapper">
       <div
@@ -25,7 +26,7 @@ import "swiper/swiper-bundle.min.css";
 Swiper.use([Navigation, Pagination, Autoplay]);
 
 export default {
-  name: "",
+  name: "Rotation",
   props: {
     categoryList: {
       type: Array,
