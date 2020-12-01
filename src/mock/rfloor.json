@@ -2,8 +2,8 @@
   {
     "id|+1": 1,
     "name": "@ctitle",
-    "keywords|5": ["@ctitle"],
-    "imgUrl": "@image(210x250)",
+    "keywords|6": ["@ctitle(4,5)"],
+    "imgUrl": "@image(210x250,'@color()')",
     "navList|6": [
       {
         "url": "#",

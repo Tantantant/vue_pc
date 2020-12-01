@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="swiper-container" id="mySwiper"> -->
-  <div class="swiper-container" id="mySwiper">
+  <div class="swiper-container" ref="swiper">
     <div class="swiper-wrapper">
       <div
         class="swiper-slide"
@@ -37,26 +37,35 @@ export default {
     categoryList() {
       if (this.swiper) return;
       this.$nextTick(() => {
-        this.swiper = new Swiper(".swiper-container", {
-          loop: true, // 循环模式选项
-
-          // 如果需要分页器
-          pagination: {
-            el: ".swiper-pagination",
-          },
-          // 如果需要前进后退按钮
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          autoplay: {
-            delay: 2000,
-            disableOnInteraction: false,
-          },
-        });
+        this.initswiper()
       });
     },
   },
+  methods: {
+    initswiper() {
+      this.swiper = new Swiper(this.$refs.swiper, {
+        loop: true, // 循环模式选项
+
+        // 如果需要分页器
+        pagination: {
+          el: ".swiper-pagination",
+        },
+        // 如果需要前进后退按钮
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+        },
+      });
+    },
+  },
+  mounted(){
+    if(!this.categoryList.length) return
+    this.initswiper()
+  }
 };
 </script>
 
