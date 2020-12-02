@@ -24,8 +24,8 @@
             <!-- 品牌分类 -->
             <li
               class="with-x"
-              @click="delProps"
-              v-for="prop in options.props"
+              @click="delProps(index)"
+              v-for="(prop, index) in options.props"
               :key="prop"
             >
               {{ `${prop.split(":")[2]}:${prop.split(":")[1]}` }}<i>×</i>
@@ -51,23 +51,26 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{active: options.order.indexOf('1') > -1}" @click="setOrder('1')">
+                  <a>综合<i class="iconfont icon-xia--jiantou"></i></a>
                 </li>
                 <li>
-                  <a href="#">销量</a>
+                  <a>销量</a>
                 </li>
                 <li>
-                  <a href="#">新品</a>
+                  <a>新品</a>
                 </li>
                 <li>
-                  <a href="#">评价</a>
+                  <a>评价</a>
                 </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{active:options.order.indexOf('2') > -1}" @click="setOrder('2')">
+                  <a
+                    >价格
+                    <span>
+                      <i class="iconfont icon-jiantou"></i>
+                      <i class="iconfont icon-jiantouarrow486"></i>
+                    </span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -163,7 +166,7 @@ export default {
         category3Id: "",
         categoryName: "",
         keyword: "",
-        order: "",
+        order: "1:desc",
         pageNo: 1,
         pageSize: 10,
         props: [],
@@ -235,14 +238,21 @@ export default {
 
     //添加品牌属性数据
     addProps(props) {
+      // console.log(props)
       this.options.props.push(props);
       this.updateProduction();
     },
     // 删除品牌属性数据
     delProps(index) {
-      this.options.props.splice(index,1);
+      this.options.props.splice(index, 1);
       this.updateProduction();
     },
+
+    // 设置排序的方法
+    setOrder(order){
+       const [,orderType] =  this.options.order.split(":");
+       this.options.order = `${order}:${orderType}`
+    }
   },
   computed: {
     ...mapGetters(["goodsList"]),
@@ -364,12 +374,27 @@ export default {
                 padding: 11px 15px;
                 color: #777;
                 text-decoration: none;
+                display: flex;
+                span {
+                    display: flex;
+                    flex-direction: column;
+                    i{
+                      height: 7px;
+                      line-height: 0.8;
+                    }
+                  }
               }
 
               &.active {
                 a {
                   background: #e1251b;
                   color: #fff;
+                  // display: flex;
+                  i {
+                    font-size: 12px;
+                    // line-height: 0.8;
+                  }
+                  
                 }
               }
             }
