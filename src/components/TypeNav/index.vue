@@ -100,6 +100,7 @@ export default {
       if (!categoryname) return;
 
       const localtion = {
+        name:"search",
         query: {
           categoryName: categoryname,
           [`category${categorynum}Id`]: categoryid,

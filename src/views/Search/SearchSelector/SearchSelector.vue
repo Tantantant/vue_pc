@@ -4,7 +4,14 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId">{{trademark.tmName}}</li>
+          <!-- 品牌属性 -->
+          <li
+            v-for="trademark in trademarkList"
+            :key="trademark.tmId"
+            @click="addTrademark(`${trademark.tmId}:${trademark.tmName}`)"
+          >
+            {{ trademark.tmName }}
+          </li>
         </ul>
       </div>
       <div class="ext">
@@ -13,11 +20,18 @@
       </div>
     </div>
     <div class="type-wrap" v-for="attrs in attrsList" :key="attrs.attrId">
-      <div class="fl key">{{attrs.attrName}}</div>
+      <div class="fl key">{{ attrs.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrsValue , index) in attrs.attrValueList" :key="index">
-            <a>{{attrsValue}}</a>
+          <!-- 品牌分类 -->
+          <li
+            v-for="(attr, index) in attrs.attrValueList"
+            :key="index"
+            @click="
+              $emit('add-props', `${attrs.attrId}:${attr}:${attrs.attrName}`)
+            "
+          >
+            <a>{{ attr }}</a>
           </li>
         </ul>
       </div>
@@ -117,8 +131,17 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "SearchSelector",
+  props: {
+    addTrademark: Function,
+    addProps: Function,
+  },
+  methods: {
+    attrs() {
+      console.log(111);
+    },
+  },
   computed: {
-    ...mapGetters(["trademarkList","attrsList"]),
+    ...mapGetters(["trademarkList", "attrsList"]),
   },
 };
 </script>

@@ -11,15 +11,40 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <!-- <li class="with-x"></li> -->
+            <!-- 关键字 -->
+            <li class="with-x" @click="delKeyword" v-show="options.keyword">
+              关键字: {{ options.keyword }}<i>×</i>
+            </li>
+
+            <!-- 品牌属性 -->
+            <li class="with-x" @click="delTrademark" v-show="options.trademark">
+              品牌: {{ options.trademark.split(":")[1] }}<i>×</i>
+            </li>
+            <!-- 品牌分类 -->
+            <li
+              class="with-x"
+              @click="delProps"
+              v-for="prop in options.props"
+              :key="prop"
+            >
+              {{ `${prop.split(":")[2]}:${prop.split(":")[1]}` }}<i>×</i>
+            </li>
+            <!-- 分类名称 -->
+            <li
+              class="with-x"
+              @click="delcategoryName"
+              v-show="options.categoryName"
+            >
+              分类名称: {{ options.categoryName }}<i>×</i>
+            </li>
+            <!-- <li class="with-x">华为<i>×</i></li>
+            <li class="with-x">OPPO<i>×</i></li> -->
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector :addTrademark="addTrademark" @add-props="addProps" />
 
         <!--details-->
         <div class="details clearfix">
@@ -59,7 +84,7 @@
                   <div class="price">
                     <strong>
                       <em>¥ </em>
-                      <i>{{ goods.price}}</i>
+                      <i>{{ goods.price }}</i>
                     </strong>
                   </div>
                   <div class="attr">
@@ -67,7 +92,7 @@
                       target="_blank"
                       href="item.html"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
-                      >{{goods.title}}</a
+                      >{{ goods.title }}</a
                     >
                   </div>
                   <div class="commit">
@@ -86,7 +111,6 @@
                   </div>
                 </div>
               </li>
-              
             </ul>
           </div>
           <div class="fr page">
@@ -127,18 +151,104 @@
 <script>
 import SearchSelector from "./SearchSelector/SearchSelector";
 import TypeNav from "@comps/TypeNav";
-import { mapGetters , mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Search",
-  methods:{
-    ...mapActions(["getProduction"])
+  data() {
+    return {
+      options: {
+        category1Id: "",
+        category2Id: "",
+        category3Id: "",
+        categoryName: "",
+        keyword: "",
+        order: "",
+        pageNo: 1,
+        pageSize: 10,
+        props: [],
+        trademark: "",
+      },
+    };
   },
-  computed:{
-    ...mapGetters(["goodsList"])
+  watch: {
+    $route() {
+      this.updateProduction();
+    },
   },
-  mounted(){
-    this.getProduction()
+  methods: {
+    ...mapActions(["getProduction"]),
+    updateProduction() {
+      const { searchText: keyword } = this.$route.params;
+      const {
+        categoryName,
+        category1Id,
+        category2Id,
+        category3Id,
+      } = this.$route.query;
+      const options = {
+        ...this.options,
+        keyword,
+        category1Id,
+        category2Id,
+        category3Id,
+        categoryName,
+      };
+      this.options = options;
+      this.getProduction(options);
+    },
+
+    //删除关键字
+    delKeyword() {
+      this.options.keyword = "";
+      this.$bus.$emit("clearKeyword");
+      this.$router.push({
+        name: "search",
+        params: "",
+        query: this.$route.query,
+      });
+    },
+    // 删除分类
+    delcategoryName() {
+      this.options.categoryName = "";
+      this.options.category1Id = "";
+      this.options.category2Id = "";
+      this.options.category3Id = "";
+
+      this.$router.push({
+        name: "search",
+        query: "",
+        params: this.$route.params,
+      });
+    },
+
+    // 添加品牌更新数据
+    addTrademark(trademark) {
+      this.options.trademark = trademark;
+      this.updateProduction();
+    },
+    // 删除品牌数据
+    delTrademark() {
+      this.options.trademark = "";
+      this.updateProduction();
+    },
+
+    //添加品牌属性数据
+    addProps(props) {
+      this.options.props.push(props);
+      this.updateProduction();
+    },
+    // 删除品牌属性数据
+    delProps(index) {
+      this.options.props.splice(index,1);
+      this.updateProduction();
+    },
+  },
+  computed: {
+    ...mapGetters(["goodsList"]),
+  },
+  mounted() {
+    this.updateProduction();
   },
   components: {
     TypeNav,
