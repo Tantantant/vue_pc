@@ -135,11 +135,6 @@ export default {
     addTrademark: Function,
     addProps: Function,
   },
-  methods: {
-    attrs() {
-      console.log(111);
-    },
-  },
   computed: {
     ...mapGetters(["trademarkList", "attrsList"]),
   },

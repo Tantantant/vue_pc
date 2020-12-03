@@ -51,6 +51,7 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
+                <!-- 如果为1开头就高亮 -->
                 <li
                   :class="{ active: options.order.indexOf('1') > -1 }"
                   @click="setOrder('1')"
@@ -74,6 +75,7 @@
                 <li>
                   <a>评价</a>
                 </li>
+                <!-- 如果为2开头就高亮 -->
                 <li
                   :class="{ active: options.order.indexOf('2') > -1 }"
                   @click="setOrder('2')"
@@ -85,14 +87,14 @@
                         :class="{
                           iconfont: true,
                           'icon-jiantou': true,
-                          deactive: options.order.indexOf('2') > -1 && !isPrice,
+                          deactive: options.order.indexOf('2') > -1 && isPrice,
                         }"
                       ></i>
                       <i
                         :class="{
                           iconfont: true,
                           'icon-jiantouarrow486': true,
-                          deactive: options.order.indexOf('2') > -1 && isPrice,
+                          deactive: options.order.indexOf('2') > -1 && !isPrice,
                         }"
                       ></i>
                     </span>
@@ -195,7 +197,7 @@ export default {
       isDone: true,
 
       // 销量排序箭头
-      isPrice: true,
+      isPrice: false,
     };
   },
   watch: {
@@ -272,42 +274,44 @@ export default {
       this.updateProduction();
     },
 
-    // 设置排序的方法
+    // 综合销量排序
     setOrder(order) {
       let [orderNum, orderType] = this.options.order.split(":");
-      // 综合上下箭头点击改变
-      // 不相等就是第一次点击，不改变图标
-      // 相等就是第二次点击，改变图标
-      if (orderNum === order) {
-        // 如果为1 改综合排序 如果为2 改销量排序
+
+      // 改变图标
+      if (order === orderNum) {
+        // 如果order值为1 就改变综合图标 否则改变销量图标
         if (order === "1") {
           this.isDone = !this.isDone;
         } else {
           this.isPrice = !this.isPrice;
         }
+        //
         orderType = orderType === "desc" ? "asc" : "desc";
       } else {
+        // 如果order等于2，销量上箭头常量
         if (order === "1") {
           orderType = this.isDone ? "desc" : "asc";
         } else {
-          this.isPrice = true;
+          this.isPrice = false;
+          orderType = "asc";
         }
-        this.updateProduction();
       }
       this.options.order = `${order}:${orderType}`;
+      this.updateProduction();
     },
 
-    handleSizeChange(pageSize){
-      this.options.pageSize = pageSize
-      this.updateProduction()
+    handleSizeChange(pageSize) {
+      this.options.pageSize = pageSize;
+      this.updateProduction();
     },
-    handleCurrentChange(pageNo){
-      this.options.pageNo = pageNo
-      this.updateProduction()
-    }
+    handleCurrentChange(pageNo) {
+      this.options.pageNo = pageNo;
+      this.updateProduction();
+    },
   },
   computed: {
-    ...mapGetters(["goodsList","total"]),
+    ...mapGetters(["goodsList", "total"]),
   },
   mounted() {
     this.updateProduction();
