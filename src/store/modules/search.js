@@ -16,7 +16,8 @@ export default {
     getters: {
         trademarkList: (state) => state.production.trademarkList,
         attrsList: (state) => state.production.attrsList,
-        goodsList: (state) => state.production.goodsList
+        goodsList: (state) => state.production.goodsList,
+        total:(state) => state.production.total
     },
     actions: {
         async getProduction({ commit }, data = {}) {
