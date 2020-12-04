@@ -108,7 +108,7 @@
               <li class="yui3-u-1-5" v-for="goods in goodsList" :key="goods.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <router-link :to="`/detail/${goods.id}`"  target="_blank"
+                    <router-link :to="`/detail/${goods.id}`"
                       ><img :src="goods.defaultImg"
                     /></router-link>
                   </div>
@@ -157,6 +157,7 @@
             </el-pagination> -->
 
             <Pagination
+              @currentChange="handleCurrentChange"
               :currentPage="options.pageNo"
               :pagerCount="7"
               :pagerSizes="5"

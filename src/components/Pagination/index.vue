@@ -1,11 +1,31 @@
 <template>
   <div class="pagination">
-    <button>上一页</button>
-    <button>1</button>
-    <button v-for=" count in startEnd.end" :key="count">{{count}}</button>
+    <button :disabled="MycurrentPage <= 1">上一页</button>
+    <button :class="{ active: MycurrentPage === 1 }" @click="setCurrentPage(1)">
+      1
+    </button>
+    <button v-show="startEnd.start > 2">...</button>
 
-    <button>下一页</button>
-    <button>总数</button>
+    <button
+      v-for="item in startEnd.end - startEnd.start + 1 >= 1
+        ? startEnd.end - startEnd.start + 1
+        : 0"
+      :key="item"
+      @click="setCurrentPage(startEnd.start + item - 1)"
+      :class="{ active: MycurrentPage === startEnd.start + item - 1 }"
+    >
+      {{ startEnd.start + item - 1 }}
+    </button>
+    <button v-show="startEnd.end < totalPages - 1">...</button>
+    <button
+      :class="{ active: MycurrentPage === totalPages }"
+      v-show="totalPages > 1"
+      @click="setCurrentPage(totalPages)"
+    >
+      {{ totalPages }}
+    </button>
+    <button :disabled="MycurrentPage === totalPages">下一页</button>
+    <button>总数:{{ total }}</button>
   </div>
 </template>
 
@@ -18,18 +38,22 @@ export default {
       type: Number,
       default: 1,
     },
-    // 每页显示按钮的数量
+    // 显示按钮的数量
     pagerCount: {
       type: Number,
       validator(val) {
+        // 验证，验证通过才会有用
+        // 大于等于5且小于等于21
+        // 返回true验证成功
+        // 返回false验证失败
         return val >= 5 && val <= 21 && val % 2 === 1;
       },
       default: 7,
     },
-    // 每页的长度
+    // 每页条数
     pagerSizes: {
       type: Number,
-      default: 5,
+      default: 10,
     },
     // 总数
     total: {
@@ -46,7 +70,7 @@ export default {
   computed: {
     // 总页数
     totalPages() {
-      return Math.ceil(this.total / this.pagerCount);
+      return Math.ceil(this.total / this.pagerSizes);
     },
     // 开始和结束的按钮
     startEnd() {
@@ -77,6 +101,21 @@ export default {
         start,
         end,
       };
+    },
+  },
+  watch: {
+    // 每次页码发生变化加载新数据
+    MycurrentPage(current) {
+      this.$emit("currentChange", current);
+    },
+    // 当外面页面发生变化，里面页面也要发生变化
+    currentPage(current){
+      this.MycurrentPage = current
+    }
+  },
+  methods: {
+    setCurrentPage(current) {
+      this.MycurrentPage = current;
     },
   },
 };

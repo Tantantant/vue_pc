@@ -52,9 +52,12 @@ export default new VueRouter({
             component: Search
         },
         {
-            name:'detail',
-            path:'/detail/:id',
-            component:Detail
+            name: 'detail',
+            path: '/detail/:id',
+            component: Detail
         }
-    ]
+    ],
+    scrollBehavior() {
+        return { x: 0, y: 0 }
+    }
 })
