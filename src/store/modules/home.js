@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { BaseCategoryList, reqGetBanners, reqGetFloors, reqGetTodayRecommends, reqRank } from '@api/home'
+import { BaseCategoryList, reqGetBanners, reqGetFloors, reqGetTodayRecommends, reqRank, reqBrand } from '@api/home'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,8 @@ export default {
         banners: [], // 首页轮播图数据
         floors: [],//首页楼层数据
         todayRecommends: [], //首頁今日推薦數據
-        ranks:[],//商品排行數據
+        ranks: [],//商品排行數據
+        brands: [], // 商品商标数据
     },
 
     getters: {},
@@ -43,10 +44,16 @@ export default {
         },
 
         // 商品排行
-        async getRanks({commit}){
-           const ranks =  await reqRank()
-           commit("GET_RANKS",ranks)
-        }
+        async getRanks({ commit }) {
+            const ranks = await reqRank()
+            commit("GET_RANKS", ranks)
+        },
+
+        //商标
+        async getBrands({commit}){
+           const brand = await reqBrand()
+           commit("GET_BRANDS",brand)
+        } 
     },
 
     mutations: {
@@ -66,8 +73,12 @@ export default {
             state.todayRecommends = todayRecommends
         },
         // 商品排行
-        GET_RANKS(state,ranks){
+        GET_RANKS(state, ranks) {
             state.ranks = ranks
+        },
+        //商品排行
+        GET_BRANDS(state,brand){
+            state.brands = brand
         }
     }
 }

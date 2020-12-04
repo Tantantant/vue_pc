@@ -50,3 +50,15 @@ export const reqRank = () => {
         url:"/ranks"
     })
 }
+
+
+/**
+ *  获取商标数据
+ */
+
+ export const reqBrand = ()=>{
+     return mockrequest({
+         method:"GET",
+         url:"/brands"
+     })
+ }
