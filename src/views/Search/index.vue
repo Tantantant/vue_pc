@@ -159,7 +159,7 @@
             <Pagination
               @currentChange="handleCurrentChange"
               :currentPage="options.pageNo"
-              :pagerCount="7"
+              :pagerCount="5"
               :pagerSizes="5"
               :total="total"
             />

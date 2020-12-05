@@ -53,7 +53,7 @@ export default {
     // 每页条数
     pagerSizes: {
       type: Number,
-      default: 10,
+      default: 5,
     },
     // 总数
     total: {

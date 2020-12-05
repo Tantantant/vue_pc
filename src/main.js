@@ -10,8 +10,10 @@ import store from '@store/'
 // 里面的代码一旦加载，就会启动mock服务器，从而拦截相应的请求
 import './mock/mockServer'
 
+// 公共样式
 import './styles/reset.css'
 import './plugins/element.js'
+import "swiper/swiper-bundle.min.css";
 
 // 引入图标字体
 import './styles/iconfont.css'

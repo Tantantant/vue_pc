@@ -19,9 +19,21 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom />
+          <Zoom
+            :imgUrl="
+              skuInfo.skuImageList[imageIndex] &&
+              skuInfo.skuImageList[imageIndex].imgUrl
+            "
+            :bigImgUrl="
+              skuInfo.skuImageList[imageIndex] &&
+              skuInfo.skuImageList[imageIndex].imgUrl
+            "
+          />
           <!-- 小图列表 -->
-          <ImageList />
+          <ImageList
+            :skuInfo="skuInfo.skuImageList"
+            :updateImgaeIndex="updateImgaeIndex"
+          />
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -78,10 +90,7 @@
           <div class="choose">
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl
-                v-for="spuSaleAttr in spuSaleAttrList"
-                :key="spuSaleAttr.id"
-              >
+              <dl v-for="spuSaleAttr in spuSaleAttrList" :key="spuSaleAttr.id">
                 <dt class="title">{{ spuSaleAttr.saleAttrName }}</dt>
                 <dd
                   changepirce="0"
@@ -89,7 +98,7 @@
                   v-for="spuSaleAttrValue in spuSaleAttr.spuSaleAttrValueList"
                   :key="spuSaleAttrValue.id"
                 >
-                  {{spuSaleAttrValue.saleAttrValueName}}
+                  {{ spuSaleAttrValue.saleAttrValueName }}
                 </dd>
                 <!-- <dd changepirce="40">银色</dd>
                 <dd changepirce="90">黑色</dd> -->
@@ -367,11 +376,19 @@ import Zoom from "./Zoom/Zoom";
 
 export default {
   name: "Detail",
+  data() {
+    return {
+      imageIndex: 0, // 当前点击图片的下标
+    };
+  },
   computed: {
     ...mapGetters(["categoryView", "spuSaleAttrList", "skuInfo"]),
   },
   methods: {
     ...mapActions(["getCommodityDetails"]),
+    updateImgaeIndex(index) {
+      this.imageIndex = index;
+    },
   },
   mounted() {
     this.getCommodityDetails(this.$route.params.id);
