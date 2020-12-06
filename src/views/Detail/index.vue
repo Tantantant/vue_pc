@@ -124,12 +124,16 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <el-input-number
+                  class="element"
+                  v-model="skuNum"
+                  controls-position="right"
+                  :min="1"
+                  :max="10"
+                ></el-input-number>
               </div>
-              <div class="add">
-                <a href="javascript:">加入购物车</a>
+              <div class="add" @click="addCart">
+                <a>加入购物车</a>
               </div>
             </div>
           </div>
@@ -379,15 +383,31 @@ export default {
   data() {
     return {
       imageIndex: 0, // 当前点击图片的下标
+      skuNum: 1,
     };
   },
   computed: {
     ...mapGetters(["categoryView", "spuSaleAttrList", "skuInfo"]),
   },
   methods: {
-    ...mapActions(["getCommodityDetails"]),
+    ...mapActions(["getCommodityDetails", "updateCartCount"]),
+    // 更新选中图片下标
     updateImgaeIndex(index) {
       this.imageIndex = index;
+    },
+    // 加入购物车
+    async addCart() {
+      try {
+        // 发送请求加入购物车
+        await this.updateCartCount({
+          skuId: this.skuInfo.id,
+          skuNum: this.skuNum,
+        });
+        // 请求成功，跳转到addCartSuccess组件
+        this.$router.push(`/addcartsuccess?skuNum=${this.skuNum}`);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   mounted() {
@@ -570,6 +590,10 @@ export default {
               float: left;
               margin-right: 15px;
 
+              .element {
+                width: 100px;
+              }
+
               .itxt {
                 width: 38px;
                 height: 37px;
@@ -606,7 +630,7 @@ export default {
 
             .add {
               float: left;
-
+              margin-left: 50px;
               a {
                 background-color: #e1251b;
                 padding: 0 25px;

@@ -1,14 +1,19 @@
 // 封装axios拦截器
 import axios from 'axios';
+import getUserTempId from '@utils/getUserTempId'
+
 // 引入进度条
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 // 引入element-ui
 import { Message } from 'element-ui';
+
+const userTempId = getUserTempId()
+
 // 公共资源
 const instance = axios.create({
     baseURL: '/api',
-    Headers: {}
+    // Headers: {}
 })
 
 // 请求拦截器
@@ -20,6 +25,10 @@ instance.interceptors.request.use((config) => {
 
     //开始进度条
     Nprogress.start()
+
+    
+    config.headers.userTempId = userTempId
+
     return config
 })
 
@@ -35,7 +44,7 @@ instance.interceptors.response.use(
         if (response.data.code === 200) {
             return response.data.data
         }
-        const {message} = response.data
+        const { message } = response.data
         // 错误提示
         Message.error(message)
         // 功能失败 返回失败的Promise

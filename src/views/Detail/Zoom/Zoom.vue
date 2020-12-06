@@ -5,7 +5,7 @@
     <div class="big">
       <img :src="bigImgUrl" />
     </div>
-    <div class="mask"></div>
+    <div class="mask" ref="mask"></div>
   </div>
 </template>
 
@@ -14,11 +14,22 @@ export default {
   name: "Zoom",
   props: ["imgUrl", "bigImgUrl"],
   methods: {
-    mouseMove(e) {
-     console.log(e.offsetWidth)
-    },
+  //   // 鼠标移动
+  //   mouseMove(e) {
+  //     // 获取鼠标 到 放大镜边缘的位置
+  //     let mouseToPriview = {
+  //       X: e.offsetX,
+  //       Y: e.offsetY,
+  //     };
+
+  //     // 取蒙版中心的一半
+  //     let maskHalf = {
+  //       X: this.$refs.mask.offsetWidth / 2,
+  //       Y: this.$refs.mask.offsetHeight / 2,
+  //     };
+  //   },
   },
-};
+}
 </script>
 
 <style lang="less">

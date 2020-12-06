@@ -1,9 +1,4 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
 import { reqGetCommodityDetails } from "@api/detail"
-
-Vue.use(VueRouter)
 
 export default {
     state: {

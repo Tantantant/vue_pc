@@ -145,7 +145,7 @@
             </ul>
           </div>
           <div class="fr page">
-            <!-- <el-pagination
+            <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :pager-count="5"
@@ -154,15 +154,15 @@
               layout="prev, pager, next,sizes,total"
               :total="total"
             >
-            </el-pagination> -->
+            </el-pagination>
 
-            <Pagination
+            <!-- <Pagination
               @currentChange="handleCurrentChange"
               :currentPage="options.pageNo"
               :pagerCount="5"
               :pagerSizes="5"
               :total="total"
-            />
+            /> -->
           </div>
         </div>
       </div>
@@ -175,7 +175,7 @@ import SearchSelector from "./SearchSelector/SearchSelector";
 import TypeNav from "@comps/TypeNav";
 import { mapGetters, mapActions } from "vuex";
 
-import Pagination from "@comps/Pagination";
+// import Pagination from "@comps/Pagination";
 
 export default {
   name: "Search",
@@ -333,7 +333,7 @@ export default {
   components: {
     TypeNav,
     SearchSelector,
-    Pagination,
+    // Pagination,
   },
 };
 </script>

@@ -1,9 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
 import { BaseCategoryList, reqGetBanners, reqGetFloors, reqGetTodayRecommends, reqRank, reqBrand } from '@api/home'
-
-Vue.use(Vuex)
 
 export default {
     state: {

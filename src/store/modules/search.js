@@ -1,9 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
 import { reqGetProduction } from "@api/search"
-
-Vue.use(Vuex)
 
 export default {
     state: {
