@@ -101,14 +101,18 @@ export default {
   methods: {
     async login() {
       try {
+        // 防止登录多次点击
         if (this.isLogining) return;
         this.isLogining = true;
         const { phone, password } = this.user;
+        // 调用方法发送请求
         await this.$store.dispatch("login", { phone, password });
         if(this.isLogining){
+          // 将name 和token 存储到localStroage
           localStorage.setItem("name",this.name)
           localStorage.setItem("token",this.token)
         }
+        // 登录成功后跳转到首页
         this.$router.push("/");
       } catch {
         this.isAutoLogin = false;

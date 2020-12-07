@@ -8,6 +8,11 @@ import Search from "../views/Search"
 import Detail from '@views/Detail'
 import AddCartSuccess from '@views/AddCartSuccess'
 import ShopCart from '@views/ShopCart'
+import Trade from '@views/Trade'
+import Center from '@views/Center'
+import Pay from '@views/Pay'
+import PaySuccess from '@views/PaySuccess'
+
 
 // 重写$router中push和replace方法
 const push = VueRouter.prototype.push
@@ -30,10 +35,12 @@ Vue.use(VueRouter)
 
 export default new VueRouter({
     routes: [
+        // 首页
         {
             path: '/',
             component: Home,
         },
+        // 登录
         {
             path: '/login',
             component: Login,
@@ -41,6 +48,7 @@ export default new VueRouter({
                 isFooterHide: true
             }
         },
+        // 注册
         {
             path: '/register',
             component: Register,
@@ -48,26 +56,53 @@ export default new VueRouter({
                 isFooterHide: true,
             }
         },
+        // 搜索
         {
             name: 'search',
             path: '/search/:searchText?',
             component: Search
         },
+        // 商品展示
         {
             name: 'detail',
             path: '/detail/:id',
             component: Detail
         },
+        // 添加成功
         {
             name:"addcartsuccess",
             path:"/addcartsuccess",
             component:AddCartSuccess
         },
+        // 购物车
         {
             name:"shopcart",
             path:"/shopcart",
             component:ShopCart
-        }
+        },
+        // 结算
+        {
+            name:"trade",
+            path:"/trade",
+            component:Trade
+        },
+        // 提交订单
+        {
+            name:"pay",
+            path:"/pay",
+            component:Pay
+        },
+        {
+            name:"paysuccess",
+            path:"/paysuccess",
+            component:PaySuccess
+        },
+        {
+            name:"center",
+            path:"/center/myorder",
+            component:Center
+        },
+
     ],
     scrollBehavior() {
         return { x: 0, y: 0 }
