@@ -2,7 +2,12 @@
   <div class="container">
     <div class="header-Top">
       <div class="header-List">
-        <div class="header-leftList">
+        <div class="header-leftList" v-if="$store.state.user.name">
+          <p>尚品汇欢迎您！ 请<router-link to="/login"> {{$store.state.user.name}} </router-link></p>
+          |
+          &nbsp;&nbsp;<router-link to="/register">退出</router-link>
+        </div>
+        <div class="header-leftList" v-else>
           <p>尚品汇欢迎您！ 请<router-link to="/login"> 登录 </router-link></p>
           |
           <router-link to="/register">免费注册</router-link>
@@ -62,6 +67,7 @@ export default {
   methods: {
     //需求：去掉地址后面的 /
     search() {
+      console.log(this.$store)
       const { searchText } = this;
       // const { categoryName } = this.$route.query
       // // if(categoryName){

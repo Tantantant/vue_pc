@@ -49,7 +49,7 @@
             <span class="sum">{{ cart.skuNum * cart.skuPrice }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet" @click="delCart(cart)">删除</a>
+            <a  class="sindelet" @click="delcart(cart)">删除</a>
             <br />
             <a href="#none">移到收藏</a>
           </li>
@@ -158,7 +158,7 @@
 </template>
 
 <script>
-import { mapActions, mapState ,mapMutations} from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "ShopCart",
   computed: {
@@ -183,19 +183,31 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getCartList", "updateCartCount"]),
-    ...mapMutations(["DELCART"]),
+    ...mapActions(["getCartList", "updateCartCount", "delCart"]),
+    // 失去焦点发送请求
+    // undata() {
+    //   this.getCartList();
+    // },
+    // input事件
+    // UpdateNum(e) {
+    //   console.log(e.target.value);
+    //   this.updateCartCount();
+    // },
+    //  async update(){
+    //     await
+    //   },
     // 商品数量增加减少
     async UpdateCount(skuId, skuNum) {
       await this.updateCartCount({ skuId, skuNum });
       // this.getCartList();
     },
-    // 删除
-    delCart(cart) {
-      if(confirm(`确定删除${cart.skuName}`)){
-        console.log(cart)
-      }
 
+    // 删除
+    async delcart(cart) {
+      if (confirm(`确定删除${cart.skuName}`)) {
+        await this.delCart(cart.skuId);
+        this.getCartList();
+      }
     },
   },
   mounted() {

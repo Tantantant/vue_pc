@@ -8,18 +8,30 @@
             <li class="clear-border"><a href="###">账户登录</a></li>
           </ul>
           <div class="Login-content">
-            <form @submit.prevent="login">
-              <div class="Login-phone">
-                <i></i>
-                <input type="text" placeholder="手机号" />
-                <p class="Login-error-msg">错误提示信息</p>
-              </div>
+            <form @submit.prevent="login"> 
+              <ValidationProvider rules="phone|length" v-slot="{ errors }">
+                <div class="Login-phone">
+                  <i></i>
+                  <input
+                    type="text"
+                    placeholder="手机号"
+                    v-model="user.phone"
+                  />
+                  <p class="Login-error-msg">{{ errors[0] }}</p>
+                </div>
+              </ValidationProvider>
 
-              <div class="Login-password">
-                <i class="pwd"></i>
-                <input type="text" placeholder="请输入密码" />
-                <p class="Login-error-msg">错误提示信息</p>
-              </div>
+              <ValidationProvider rules="password" v-slot="{ errors }">
+                <div class="Login-password">
+                  <i class="pwd"></i>
+                  <input
+                    type="text"
+                    placeholder="请输入密码"
+                    v-model="user.password"
+                  />
+                  <p class="Login-error-msg">{{ errors[0] }}</p>
+                </div>
+              </ValidationProvider>
 
               <div class="Login-Button">
                 <label class="checkbox inline">
@@ -28,7 +40,7 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="Login-btn">登&nbsp;&nbsp;录</button>
+              <button class="Login-btn" type="submit">登&nbsp;&nbsp;录</button>
             </form>
             <div class="Login-foot">
               <ul>
@@ -47,20 +59,64 @@
 </template>
 
 <script>
-import { Login } from "@api/user";
+// import { Login } from "@api/user";
+import { mapState } from "vuex";
+import { ValidationProvider, extend } from "vee-validate";
+import { required } from "vee-validate/dist/rules";
 
+// 手机号验证
+extend("phone", {
+  ...required,
+  message: "手机号不能为空",
+});
+extend("length", {
+  validate(value) {
+    return value.length === 11;
+  },
+  message: "请输入11位手机号码",
+});
+// 密码验证
+extend("password", {
+  ...required,
+  message: "密码不能为空",
+});
 export default {
   name: "Login",
+  data() {
+    return {
+      user: {
+        phone: "",
+        password: "",
+      },
+      isLogining: false, // 正在登录
+      isAutoLogin: true, // 自动登录
+    };
+  },
+  computed: {
+    ...mapState({
+      name: (state) => state.user.name,
+      token: (state) => state.user.token,
+    }),
+  },
   methods: {
-    login() {
-      Login("13700000000","111111")
-      .then(res=>{
-        console.log("成功",res)
-      })
-      .catch(err=>{
-        console.log("err",err)
-      })
+    async login() {
+      try {
+        if (this.isLogining) return;
+        this.isLogining = true;
+        const { phone, password } = this.user;
+        await this.$store.dispatch("login", { phone, password });
+        if(this.isLogining){
+          localStorage.setItem("name",this.name)
+          localStorage.setItem("token",this.token)
+        }
+        this.$router.push("/");
+      } catch {
+        this.isAutoLogin = false;
+      }
     },
+  },
+  components: {
+    ValidationProvider,
   },
 };
 </script>
