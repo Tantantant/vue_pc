@@ -2,8 +2,8 @@ import { reqRegister, reqLogin } from '@api/user'
 
 export default {
     state: {
-        name:localStorage.getItem("name")||"",
-        token:localStorage.getItem("token")||""
+        name: localStorage.getItem("name") || "",
+        token: localStorage.getItem("token") || ""
     },
     getters: {},
     actions: {
@@ -12,14 +12,14 @@ export default {
             console.log(commit)
         },
         async login({ commit }, { phone, password }) {
-           const user =  await reqLogin(phone, password)
-            commit("REQ_LOGIN",user)
+            const user = await reqLogin(phone, password)
+            commit("REQ_LOGIN", user)
         },
     },
     mutations: {
-        REQ_LOGIN(state,user){
+        REQ_LOGIN(state, user) {
             state.name = user.name,
-            state.token = user.token
+                state.token = user.token
         }
     }
 }

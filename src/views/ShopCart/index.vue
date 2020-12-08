@@ -155,7 +155,7 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <router-link class="sum-btn" to="/trade">结算</router-link>
+          <a class="sum-btn" @click="submit">结算</a>
         </div>
       </div>
     </div>
@@ -236,6 +236,10 @@ export default {
         await this.delCart(cart.skuId);
         this.getCartList();
       }
+    },
+    // 结算
+    submit() {
+      this.$router.push("/trade");
     },
   },
   mounted() {

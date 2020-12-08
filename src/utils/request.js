@@ -1,6 +1,7 @@
 // 封装axios拦截器
 import axios from 'axios';
 import getUserTempId from '@utils/getUserTempId'
+import store from '../store'
 
 // 引入进度条
 import Nprogress from 'nprogress'
@@ -26,7 +27,12 @@ instance.interceptors.request.use((config) => {
     //开始进度条
     Nprogress.start()
 
-    
+    // 添加token请求公共参数
+    const token = store.state.user.token
+    if(token){
+        config.headers.token = token
+    }
+
     config.headers.userTempId = userTempId
 
     return config

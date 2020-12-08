@@ -87,17 +87,19 @@ const router = new VueRouter({
             path:"/trade",
             component:Trade
         },
-        // 提交订单
+        // 立即支付
         {
             name:"pay",
             path:"/pay",
             component:Pay
         },
+        // 支付成功
         {
             name:"paysuccess",
             path:"/paysuccess",
             component:PaySuccess
         },
+        // 查看订单
         {
             name:"center",
             path:"/center/myorder",
