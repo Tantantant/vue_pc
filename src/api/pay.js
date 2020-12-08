@@ -35,3 +35,10 @@ export const reqGetSubmitOrder = ({
     });
 };
 
+// 获取订单支付
+export const reqGetCreateNative = (orderId) => {
+    return request({
+        method: "GET",
+        url: `/payment/weixin/createNative/${orderId}`
+    })
+}

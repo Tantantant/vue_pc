@@ -33,7 +33,7 @@ VueRouter.prototype.replace = function (localtion, onComplate, onAbort) {
 
 
 Vue.use(VueRouter)
-
+    
 const router = new VueRouter({
     routes: [
         // 首页

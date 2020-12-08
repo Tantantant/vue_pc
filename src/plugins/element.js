@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import { Button ,Message} from 'element-ui'
+import { Button, Message, MessageBox } from 'element-ui'
 
 Vue.use(Button)
 
 Vue.prototype.$message = Message
+Vue.prototype.$alert = MessageBox.alert;
 
