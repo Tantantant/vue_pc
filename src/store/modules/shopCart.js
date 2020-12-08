@@ -9,7 +9,9 @@ export default {
     state: {
         cartList: []
     },
-    getters: {},
+    getters: {
+        cartListLength:(state)=>state.cartList.length
+    },
     actions: {
         // 购物车列表
         async getCartList({ commit }) {
@@ -21,9 +23,11 @@ export default {
             await reqUpdateCartCount(skuId, skuNum)
             commit("REQ_UPDATE_CARTCOUNT", { skuId, skuNum })
         },
+        // 切换商品
         async updateCartCheck({ commit }, { skuId, isChecked }) {
+            console.log(skuId,isChecked)
             // 发送请求跟新服务器数据
-            await reqGetShopChecked(skuId, isChecked)
+            await reqGetShopChecked({skuId, isChecked})
             console.log(commit)
         },
         async delCart({commit},skuid){

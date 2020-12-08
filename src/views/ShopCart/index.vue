@@ -13,7 +13,12 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="cart in cartList" :key="cart.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" :checked="cart.isChecked" />
+            <input
+              type="checkbox"
+              name="chk_list"
+              :checked="cart.isChecked"
+              @change="checked(cart)"
+            />
           </li>
           <li class="cart-list-con2">
             <img :src="cart.imgUrl" />
@@ -49,7 +54,7 @@
             <span class="sum">{{ cart.skuNum * cart.skuPrice }}</span>
           </li>
           <li class="cart-list-con7">
-            <a  class="sindelet" @click="delcart(cart)">删除</a>
+            <a class="sindelet" @click="delcart(cart)">删除</a>
             <br />
             <a href="#none">移到收藏</a>
           </li>
@@ -132,7 +137,7 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" />
+        <input class="chooseAll" type="checkbox" @change="allCheck" />
         <span>全选</span>
       </div>
       <div class="option">
@@ -158,10 +163,16 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState ,mapGetters} from "vuex";
 export default {
   name: "ShopCart",
+  data() {
+    return {
+      ischecked: 0,
+    };
+  },
   computed: {
+    ...mapGetters(['cartListLength']),
     ...mapState({
       cartList: (state) => state.shopCart.cartList,
     }),
@@ -183,7 +194,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getCartList", "updateCartCount", "delCart"]),
+    ...mapActions([
+      "getCartList",
+      "updateCartCount",
+      "delCart",
+      "updateCartCheck",
+    ]),
     // 失去焦点发送请求
     // undata() {
     //   this.getCartList();
@@ -199,9 +215,21 @@ export default {
     // 商品数量增加减少
     async UpdateCount(skuId, skuNum) {
       await this.updateCartCount({ skuId, skuNum });
-      // this.getCartList();
+      this.getCartList();
     },
 
+    // 单选
+    async checked(cart) {
+      const { skuId, isChecked } = cart;
+      let checked = isChecked === 1 ? 0 : 1;
+      console.log(checked);
+      await this.updateCartCheck({ skuId, isChecked: checked });
+      this.getCartList();
+    },
+    // 全选
+    allCheck() {
+
+    },
     // 删除
     async delcart(cart) {
       if (confirm(`确定删除${cart.skuName}`)) {

@@ -18,7 +18,7 @@ export const reqUpdateCartCount = (skuId, skuNum) => {
 }
 
 // 切换商品数据状态
-export const reqGetShopChecked = (skuId, isChecked) => {
+export const reqGetShopChecked = ({skuId, isChecked}) => {
     return request({
         method: 'GET',
         url: `/cart/checkCart/${skuId}/${isChecked}`

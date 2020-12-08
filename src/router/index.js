@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 import Home from "@views/Home"
 import Login from "../views/Login"
@@ -33,7 +34,7 @@ VueRouter.prototype.replace = function (localtion, onComplate, onAbort) {
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
     routes: [
         // 首页
         {
@@ -108,3 +109,17 @@ export default new VueRouter({
         return { x: 0, y: 0 }
     }
 })
+
+// 在没有登录时不能访问一下页面
+// 将没有登录不能访问的页面保存起来
+const permissionPaths = ['/trade','/pay','/center']
+// 路由导航守卫
+router.beforeEach((to,from,next)=>{
+    // 如果跳转的页面路径包含访问的路径， 并且没有token的时候 跳转到login页面
+    if(permissionPaths.indexOf(to.path) > -1 && !store.state.user.token){
+        return next('/login')
+    }
+   next()
+})
+
+export default router

@@ -22,8 +22,14 @@
 </template>
 
 <script>
+// import {mapState} from 'vuex'
   export default {
     name: 'AddCartSuccess',
+    computed:{
+      // ...mapState({
+      //   cartList:(state)=>state.shopCart.cartList
+      // })
+    }
   }
 </script>
 

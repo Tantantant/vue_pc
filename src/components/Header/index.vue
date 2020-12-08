@@ -3,7 +3,7 @@
     <div class="header-Top">
       <div class="header-List">
         <div class="header-leftList" v-if="$store.state.user.name">
-          <p>尚品汇欢迎您！ 请<router-link to="/login"> {{$store.state.user.name}} </router-link></p>
+          <p>尚品汇欢迎您！ 请<span> {{$store.state.user.name}} </span></p>
           |
           &nbsp;&nbsp;<router-link to="/register">退出</router-link>
         </div>

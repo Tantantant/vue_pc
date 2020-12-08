@@ -15,19 +15,19 @@ export default {
   props: ["imgUrl", "bigImgUrl"],
   methods: {
     mouseMove(e) {
-      console.log(e);
+      // console.log(e);
       // 获取mask
       let mask = this.$refs.mask;
-      console.log(mask);
+      // console.log(mask);
       // 获取放大镜
       let fangdajing = this.$refs.fangdajing;
-      console.log(fangdajing);
+      // console.log(fangdajing);
       // 获取大图容器
       let big = this.$refs.big;
-      console.log(big);
+      // console.log(big);
       // 获取大图
       let bigImg = this.$refs.bigImg;
-      console.log(bigImg);
+      // console.log(bigImg);
 
       // 获取鼠标到放大镜边缘的位置
       // 公式：鼠标到屏幕边缘的距离 - 放大镜边缘到屏幕的距离

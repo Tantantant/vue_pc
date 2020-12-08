@@ -94,9 +94,12 @@
                 <dt class="title">{{ spuSaleAttr.saleAttrName }}</dt>
                 <dd
                   changepirce="0"
-                  class="active"
+                  :class="{ active: spuSaleAttrValue.isChecked === '1' }"
                   v-for="spuSaleAttrValue in spuSaleAttr.spuSaleAttrValueList"
                   :key="spuSaleAttrValue.id"
+                  @click="
+                    selcet(spuSaleAttrValue, spuSaleAttr.spuSaleAttrValueList)
+                  "
                 >
                   {{ spuSaleAttrValue.saleAttrValueName }}
                 </dd>
@@ -408,6 +411,17 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    selcet(value, valueList) {
+      console.log(value, valueList);
+      // 如果指定的value已经选中, 直接结束
+      if (value.isChecked === "1") return;
+
+      // 将原本选中变为不选中
+      valueList.forEach((value) => (value.isChecked = "0"));
+
+      // 将指定的value选中
+      value.isChecked = "1";
     },
   },
   mounted() {
