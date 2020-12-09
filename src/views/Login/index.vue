@@ -40,7 +40,7 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="Login-btn" type="submit">登&nbsp;&nbsp;录</button>
+              <Button class="Login-btn" type="submit">登&nbsp;&nbsp;录</Button>
             </form>
             <div class="Login-foot">
               <ul>
@@ -59,11 +59,10 @@
 </template>
 
 <script>
-// import { Login } from "@api/user";
 import { mapState } from "vuex";
 import { ValidationProvider, extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
-
+import Button from '@comps/Button'
 // 手机号验证
 extend("phone", {
   ...required,
@@ -121,6 +120,7 @@ export default {
   },
   components: {
     ValidationProvider,
+    Button
   },
 };
 </script>

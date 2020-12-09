@@ -2,17 +2,30 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 
-import Home from "@views/Home"
-import Login from "../views/Login"
-import Register from "../views/Register"
-import Search from "../views/Search"
-import Detail from '@views/Detail'
-import AddCartSuccess from '@views/AddCartSuccess'
-import ShopCart from '@views/ShopCart'
-import Trade from '@views/Trade'
-import Center from '@views/Center'
-import Pay from '@views/Pay'
-import PaySuccess from '@views/PaySuccess'
+// import Home from "@views/Home"
+// import Login from "../views/Login"
+// import Register from "../views/Register"
+// import Search from "../views/Search"
+// import Detail from '@views/Detail'
+// import AddCartSuccess from '@views/AddCartSuccess'
+// import ShopCart from '@views/ShopCart'
+// import Trade from '@views/Trade'
+// import Center from '@views/Center'
+// import Pay from '@views/Pay'
+// import PaySuccess from '@views/PaySuccess'
+
+// 路由懒加载
+const Home = () => import(/* webpackChunkName:"Home"*/ "../views/Home")
+const Login = () => import(/* webpackChunkName:"Login"*/ "../views/Login")
+const Register = () => import(/* webpackChunkName:"Register"*/ "../views/Register")
+const Search = () => import(/* webpackChunkName:"Search"*/ "../views/Search")
+const Detail = () => import(/* webpackChunkName:"Detail"*/ "../views/Detail")
+const AddCartSuccess = () => import(/* webpackChunkName:"AddCartSuccess"*/ "../views/AddCartSuccess")
+const ShopCart = () => import(/* webpackChunkName:"ShopCart"*/ "../views/ShopCart")
+const Trade = () => import(/* webpackChunkName:"Trade"*/ "../views/Trade")
+const Center = () => import(/* webpackChunkName:"Center"*/ "../views/Center")
+const Pay = () => import(/* webpackChunkName:"Pay"*/ "../views/Pay")
+const PaySuccess = () => import(/* webpackChunkName:"PaySuccess"*/ "../views/PaySuccess")
 
 
 // 重写$router中push和replace方法
@@ -33,8 +46,15 @@ VueRouter.prototype.replace = function (localtion, onComplate, onAbort) {
 
 
 Vue.use(VueRouter)
-    
+
 const router = new VueRouter({
+    /**
+     * hash模式  带#号  不能使用锚点
+     * history模式  可以使用锚点功能 
+     */
+    // 路由模式
+    // mode:"hash", // 默认hash模式
+    mode: "history",  // history模式
     routes: [
         // 首页
         {
@@ -71,39 +91,39 @@ const router = new VueRouter({
         },
         // 添加成功
         {
-            name:"addcartsuccess",
-            path:"/addcartsuccess",
-            component:AddCartSuccess
+            name: "addcartsuccess",
+            path: "/addcartsuccess",
+            component: AddCartSuccess
         },
         // 购物车
         {
-            name:"shopcart",
-            path:"/shopcart",
-            component:ShopCart
+            name: "shopcart",
+            path: "/shopcart",
+            component: ShopCart
         },
         // 结算
         {
-            name:"trade",
-            path:"/trade",
-            component:Trade
+            name: "trade",
+            path: "/trade",
+            component: Trade
         },
         // 立即支付
         {
-            name:"pay",
-            path:"/pay",
-            component:Pay
+            name: "pay",
+            path: "/pay",
+            component: Pay
         },
         // 支付成功
         {
-            name:"paysuccess",
-            path:"/paysuccess",
-            component:PaySuccess
+            name: "paysuccess",
+            path: "/paysuccess",
+            component: PaySuccess
         },
         // 查看订单
         {
-            name:"center",
-            path:"/center/myorder",
-            component:Center
+            name: "center",
+            path: "/center/myorder",
+            component: Center
         },
 
     ],
@@ -114,14 +134,14 @@ const router = new VueRouter({
 
 // 在没有登录时不能访问一下页面
 // 将没有登录不能访问的页面保存起来
-const permissionPaths = ['/trade','/pay','/center']
+const permissionPaths = ['/trade', '/pay', '/center']
 // 路由导航守卫
-router.beforeEach((to,from,next)=>{
+router.beforeEach((to, from, next) => {
     // 如果跳转的页面路径包含访问的路径， 并且没有token的时候 跳转到login页面
-    if(permissionPaths.indexOf(to.path) > -1 && !store.state.user.token){
+    if (permissionPaths.indexOf(to.path) > -1 && !store.state.user.token) {
         return next('/login')
     }
-   next()
+    next()
 })
 
 export default router

@@ -7,7 +7,7 @@
       </h3>
     </div>
     <div class="Register-content">
-      <form @submit.prevent='submit'>
+      <div class="form" >
         <div class="Register-input">
           <label>手机号:</label>
           <ValidationProvider
@@ -64,13 +64,14 @@
               v-model="user.isChecked"
             />同意协议并注册《尚品汇用户协议》
         </div>
-        <button class="Register-btn" type="submit">完成注册</button>
-      </form>
+        <Button class="Register-btn" @click="submit">完成注册</Button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Button from '@comps/Button'
 import { ValidationProvider, extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 // 手机号验证
@@ -128,6 +129,7 @@ export default {
   methods: {
     // 注册
     async submit(){
+      console.log(222)
       let {phone,code,isChecked,password,rePassword} = this.user
       try{
         if(password !== rePassword ){
@@ -155,6 +157,7 @@ export default {
   },
   components: {
     ValidationProvider,
+    Button
   },
 };
 </script>
@@ -185,7 +188,7 @@ export default {
     }
   }
 }
-.Register-content form {
+.Register-content .form {
   position: relative;
   width: 1200px;
   margin: 0 auto;
@@ -228,6 +231,8 @@ export default {
   width: 270px;
   height: 36px;
   background: #e1251b;
+  text-align: center;
+  line-height: 36px;
   color: #fff !important;
   display: inline-block;
   font-size: 16px;

@@ -11,9 +11,13 @@ import { Message } from 'element-ui';
 
 const userTempId = getUserTempId()
 
+// development  开发模式
+
+// console.log(process.env.NODE_ENV)
+const url = process.env.NODE_ENV ==='development' ? '/' : "http://182.92.128.115/"
 // 公共资源
 const instance = axios.create({
-    baseURL: '/api',
+    baseURL: `${url}api`,
     // Headers: {}
 })
 
