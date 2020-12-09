@@ -13,6 +13,7 @@ import './mock/mockServer'
 // 公共样式
 import './styles/reset.css'
 import './plugins/element.js'
+import './plugins/lazyload'
 import "swiper/swiper-bundle.min.css";
 
 // 引入图标字体

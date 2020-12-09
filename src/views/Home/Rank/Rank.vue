@@ -29,7 +29,7 @@
             <p class="tab-pic">
               <a href="#">
                 <!-- <img src="./images/1.jpg" /> -->
-                <img :src="rank.rankList" />
+                <img v-lazy="rank.rankList" />
               </a>
             </p>
             <div class="tab-info">

@@ -30,7 +30,7 @@
                 <li>电热水器</li> -->
               </ul>
               <!-- <img src="./images/floor-1-1.png" /> -->
-              <img :src="floor.imgUrl" />
+              <img v-lazy="floor.imgUrl" />
 
               <!-- <img :src="floors.imgUrl" /> -->
             </div>
@@ -40,22 +40,22 @@
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[0]" />
+                <img v-lazy="floor.recommendList[0]" />
               </div>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[1]" />
+                <img v-lazy="floor.recommendList[1]" />
               </div>
             </div>
             <div class="split center">
-              <img :src="floor.bigImg" />
+              <img v-lazy="floor.bigImg" />
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[2]" />
+                <img v-lazy="floor.recommendList[2]" />
               </div>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[3]" />
+                <img v-lazy="floor.recommendList[3]" />
               </div>
             </div>
           </div>

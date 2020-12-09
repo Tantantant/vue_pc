@@ -407,7 +407,7 @@ export default {
           skuNum: this.skuNum,
         });
         // 请求成功，跳转到addCartSuccess组件
-        this.$router.push(`/addcartsuccess?skuNum=${this.skuNum}`);
+        this.$router.push(`/addcartsuccess?skuNum=${this.skuNum}&skuId=${this.$route.params.id}`);
       } catch (error) {
         console.log(error);
       }

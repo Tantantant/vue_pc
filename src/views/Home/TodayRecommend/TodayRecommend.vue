@@ -9,7 +9,7 @@
           </div>
         </li> -->
         <li class="banner" v-for="recommend in todayRecommends" :key="recommend.id">
-          <img :src="recommend.imgUrl" />
+          <img v-lazy="recommend.imgUrl" />
         </li>
         <!-- <li class="banner">
           <img src="./images/today02.png" />
