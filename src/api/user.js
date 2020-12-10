@@ -31,3 +31,11 @@ export const reqRegister = ({ phone, password, code }) => {
         // params :{} // 放置查询字符串参数，通常get请求
     })
 }
+
+// 退出登录
+export const reqGetSignOut = () => {
+    return request({
+        method:"GET",
+        url:"/user/passport/logout"
+    })
+}

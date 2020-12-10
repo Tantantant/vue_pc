@@ -63,7 +63,7 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" @change="allCheck" />
+        <input class="chooseAll" type="checkbox" @change="checkedAll" />
         <span>全选</span>
       </div>
       <div class="option">
@@ -94,7 +94,7 @@ export default {
   name: "ShopCart",
   data() {
     return {
-      ischecked: 0,
+      ischecked: 0,// 全选
     };
   },
   computed: {
@@ -146,15 +146,23 @@ export default {
 
     // 单选
     async checked(cart) {
+      console.log(cart)
       const { skuId, isChecked } = cart;
       let checked = isChecked === 1 ? 0 : 1;
       console.log(checked);
+      if(isChecked === 1){
+        this.ischecked = 1
+      }
       await this.updateCartCheck({ skuId, isChecked: checked });
       this.getCartList();
+      
     },
     // 全选
-    allCheck() {
-
+    checkedAll() {
+      const {cartList} = this
+      if(cartList.isChecked === 1) return
+      // console.log(this.cartList)
+      cartList.forEach((item)=>console.log(item) )
     },
     // 删除
     async delcart(cart) {

@@ -5,7 +5,7 @@
         <div class="header-leftList" v-if="$store.state.user.name">
           <p>尚品汇欢迎您！ 请<span> {{$store.state.user.name}} </span></p>
           |
-          &nbsp;&nbsp;<router-link to="/register">退出</router-link>
+          &nbsp;&nbsp;<span  @click="signOut">退出</span>
         </div>
         <div class="header-leftList" v-else>
           <p>尚品汇欢迎您！ 请<router-link to="/login"> 登录 </router-link></p>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name: "Header",
   data() {
@@ -65,9 +66,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['getSignOut']),
     //需求：去掉地址后面的 /
     search() {
-      console.log(this.$store)
+      // console.log(this.$store)
       const { searchText } = this;
       // const { categoryName } = this.$route.query
       // // if(categoryName){
@@ -97,6 +99,13 @@ export default {
       }
       this.$router.push(localtion);
     },
+
+    // 退出登录
+    signOut(){
+      localStorage.removeItem('token','name','userTempId')
+      this.getSignOut()
+      this.$router.push('/login')
+    }    
   },
   mounted() {
     this.$bus.$on("clearKeyword", () => {

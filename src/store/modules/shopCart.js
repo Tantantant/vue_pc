@@ -2,7 +2,7 @@ import {
     reqGetCartList, // 购物车列表
     reqUpdateCartCount, // 添加,减少购物车数量
     reqGetShopChecked,   // 切换商品数据
-    reqDelCart //删除商品数据
+    reqDelCart ,//删除商品数据
 } from "@api/cartShop"
 
 export default {
@@ -10,6 +10,7 @@ export default {
         cartList: []
     },
     getters: {
+        // cartList数据长度
         cartListLength:(state)=>state.cartList.length
     },
     actions: {
@@ -33,7 +34,7 @@ export default {
         async delCart({commit},skuid){
            await reqDelCart(skuid)
             commit("REQ_DELCART",skuid)
-        }
+        },
     },
     mutations: {
         REQ_GET_CART_LIST(state, cartList) {
